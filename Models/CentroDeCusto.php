@@ -24,4 +24,18 @@ class CentroDeCusto extends Model
         }
     }
 
+    public function novoCentroDeCusto($codigo, $centroDeCusto){
+        $sql = "INSERT INTO centro_de_custo  VALUES (?, ?)";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $codigo);
+        $sql->bindValue(2, $centroDeCusto);
+        $sql->execute();
+        if($this->db->lastInsertId() > 0 ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 }
