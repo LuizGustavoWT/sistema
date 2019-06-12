@@ -6,7 +6,15 @@ use Core\Model;
 use \PDO;
 
 class Usuarios extends Model{
-    
+
+    public function isLoged(){
+
+    }
+
+    public function login($user, $password){
+
+    }
+
     public function listarUsuarios(){
 
         $sql = "SELECT * FROM usuarios";

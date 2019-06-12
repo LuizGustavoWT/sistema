@@ -37,5 +37,31 @@ class CentroDeCusto extends Model
         }
     }
 
+    public function buscarCentroDeCusto($cc){
+        $sql = "SELECT * FROM centro_de_custo WHERE cod_cc = ?";
+        $sql = $this->db->prepare($sql);
+        $sql->execute();
+
+        if ($sql->rowCount() > 0){
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            return false;
+        }
+    }
+
+
+    public function atualizaCentroDeCustos($id, $descricao, $codigo)
+    {
+        $sql = "UPDATE centro_de_custo SET cod_cc = ?, descricao = ? WHERE id = ?";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $codigo);
+        $sql->bindValue(2, trim(mb_strtoupper($descricao)));
+        $sql->bindValue(3, $id);
+    }
+
+    public function deletarCentroDeCustos($id){
+
+    }
+
 
 }

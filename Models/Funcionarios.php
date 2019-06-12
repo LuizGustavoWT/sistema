@@ -15,7 +15,7 @@ class Funcionarios extends Model
 {
 
     public function listarFuncionarios(){
-        $sql = "SELECT * FROM funcionarios";
+        $sql = "SELECT * FROM funcionarios WHERE status = 1 ORDER BY nome ASC";
         $sql = $this->db->prepare($sql);
         $sql->execute();
 
@@ -28,7 +28,16 @@ class Funcionarios extends Model
 
     public function novoFuncionario($nome, $cpd, $centroDeCusto){
         $sql = "INSERT INTO funcionarios (cpd, nome, id_centro_de_custo) VALUES (?,?,?)";
-
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $cpd);
+        $sql->bindValue(2, $nome);
+        $sql->bindValue(3, $centroDeCusto);
+        $sql->execute();
+        if ($this->db->lastInsertId() > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function saldoTotalBanco(){
@@ -50,6 +59,18 @@ class Funcionarios extends Model
         $sql->bindValue(1, $cc);
         $sql->execute();
 
+        if($sql->rowCount() > 0){
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            return false;
+        }
+    }
+
+    public function funcionariosPorCentroDeCusto($idCentroDeCusto){
+        $sql = "SELECT * FROM funcionarios WHERE id_centro_de_custo = ?";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $idCentroDeCusto);
+        $sql->execute();
         if($sql->rowCount() > 0){
             return $sql->fetchAll(PDO::FETCH_ASSOC);
         }else{

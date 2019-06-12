@@ -3,7 +3,7 @@ require 'enviroment.php';
 $config =array();
 global $config;
 if (ENVIROMENT == 'development'){
-    define("BASE_URL",'http://localhost/angela/');
+    define("BASE_URL",'http://localhost/sistema');
     $config['host'] = 'localhost';
     $config['dbname'] = 'acch_banco';
     $config['password'] = '';
@@ -11,7 +11,7 @@ if (ENVIROMENT == 'development'){
     $config['jwt_validate'] = "198aa52f3b4bdd2539c2c1384f45824e";
 }
 elseif (ENVIROMENT == 'production'){
-    define("BASE_URL",'');
+    define("BASE_URL",'http://localhost/sistema');
     $config['host'] = '';
     $config['dbname'] = '';
     $config['password'] = '';
