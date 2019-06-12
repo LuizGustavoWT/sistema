@@ -17,10 +17,21 @@ class LoginController extends Controller{
 
         if($this->getMethod() == "POST"){
             $usuario = new Usuarios();
-            $usuario->login($dados['username'], $dados['password']);
-            $this->returnJson($dados);
+            if(isset($dados['username']) && !empty($dados['password'])) {
+                if(isset($dados['password']) && !empty($dados['password'])) {
+                    $user = $usuario->login($dados['username'], $dados['password']);
+                    if ($user) {
+                        $user['expiration'] = strtotime(time(), "+7 days");
+                        $token = "";
+                        header("Authorization: Basic" . $token);
+                    }
+                }
+            }else{
+
+            }
         }
 
     }
-    
+
+
 }

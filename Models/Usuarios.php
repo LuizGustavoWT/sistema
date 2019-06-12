@@ -4,15 +4,33 @@ namespace Models;
 
 use Core\Model;
 use \PDO;
+use Models\JWT;
 
 class Usuarios extends Model{
 
-    public function isLoged(){
 
+    public function isLoged($token){
+        $jwt = new JWT();
+        $dados = $jwt->validate($token);
+        if($dados){
+            return $dados;
+        }else{
+            return false;
+        }
     }
 
     public function login($user, $password){
+        $sql = "SELECT * FROM usuarios WHERE usuario = ? AND senha = ? AND situacao = 1";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $user);
+        $sql->bindValue(2, $password);
+        $sql->execute();
 
+        if($sql->rowCount() > 0){
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            return false;
+        }
     }
 
     public function listarUsuarios(){
