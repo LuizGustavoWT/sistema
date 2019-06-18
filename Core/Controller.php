@@ -1,6 +1,11 @@
 <?php
 namespace Core;
 class Controller{
+
+    public function getHeader(){
+        return getallheaders();
+    }
+
     public function getMethod(){
         return $_SERVER['REQUEST_METHOD'];
     }

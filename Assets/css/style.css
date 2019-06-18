@@ -20,7 +20,10 @@
     margin: 15px;
 }
 
-body{
+body.login{
     background-color: #495057;
+}
+body{
+    background-color: #E8E8E8;
 
 }

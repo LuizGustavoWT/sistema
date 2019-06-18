@@ -23,11 +23,11 @@ class Usuarios extends Model{
         $sql = "SELECT * FROM usuarios WHERE usuario = ? AND senha = ? AND situacao = 1";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $user);
-        $sql->bindValue(2, $password);
+        $sql->bindValue(2, md5($password));
         $sql->execute();
 
         if($sql->rowCount() > 0){
-            return $sql->fetchAll(PDO::FETCH_ASSOC);
+            return $sql->fetch(PDO::FETCH_ASSOC);
         }else{
             return false;
         }
@@ -65,6 +65,18 @@ class Usuarios extends Model{
         $sql = "SELECT * FROM usuarios WHERE usuario = ?";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $user);
+        $sql->execute();
+        if($sql->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function usuarioId($id){
+        $sql = "SELECT * FROM usuarios WHERE id = ?";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $id);
         $sql->execute();
         if($sql->rowCount() > 0){
             return true;

@@ -30,10 +30,24 @@ class Funcionarios extends Model
         $sql = "INSERT INTO funcionarios (cpd, nome, id_centro_de_custo) VALUES (?,?,?)";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $cpd);
-        $sql->bindValue(2, $nome);
+        $sql->bindValue(2, trim(strtoupper($nome)));
         $sql->bindValue(3, $centroDeCusto);
         $sql->execute();
         if ($this->db->lastInsertId() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function atualizarDadosFuncionario($nome, $cpd, $centroDeCusto){
+        $sql = "UPDATE funcionarios SET nome = ?, id_centro_de_custo = ? WHERE cpd = ?";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(2, trim(strtoupper($nome)));
+        $sql->bindValue(3, $centroDeCusto);
+        $sql->bindValue(1, $cpd);
+        $sql->execute();
+        if ($sql->rowCount() > 0){
             return true;
         }else{
             return false;
@@ -70,6 +84,18 @@ class Funcionarios extends Model
         $sql = "SELECT * FROM funcionarios WHERE id_centro_de_custo = ?";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $idCentroDeCusto);
+        $sql->execute();
+        if($sql->rowCount() > 0){
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            return false;
+        }
+    }
+
+    public function buscarFuncionario($cpd){
+        $sql = "SELECT * FROM funcionarios WHERE cpd = ?";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $cpd);
         $sql->execute();
         if($sql->rowCount() > 0){
             return $sql->fetchAll(PDO::FETCH_ASSOC);
