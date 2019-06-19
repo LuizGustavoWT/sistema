@@ -40,12 +40,13 @@ class Funcionarios extends Model
         }
     }
 
-    public function atualizarDadosFuncionario($nome, $cpd, $centroDeCusto){
-        $sql = "UPDATE funcionarios SET nome = ?, id_centro_de_custo = ? WHERE cpd = ?";
+    public function atualizarDadosFuncionario($nome, $cpd, $centroDeCusto, $id){
+        $sql = "UPDATE funcionarios SET nome = ?, id_centro_de_custo = ?, cpd = ? WHERE id = ?";
         $sql = $this->db->prepare($sql);
-        $sql->bindValue(2, trim(strtoupper($nome)));
-        $sql->bindValue(3, $centroDeCusto);
-        $sql->bindValue(1, $cpd);
+        $sql->bindValue(1, trim(strtoupper($nome)));
+        $sql->bindValue(2, $centroDeCusto);
+        $sql->bindValue(3, $cpd);
+        $sql->bindValue(4, $id);
         $sql->execute();
         if ($sql->rowCount() > 0){
             return true;
@@ -66,6 +67,7 @@ class Funcionarios extends Model
             return false;
         }
     }
+
     public function saldoTotalBancoPorCentroDeCusto($cc){
         $sql = "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(funcionarios.saldo))) as total FROM funcionarios WHERE id_centro_de_custo = ((SELECT id FROM centro_de_custo WHERE centro_de_custo.cod_cc = ?) )";
 
@@ -93,7 +95,7 @@ class Funcionarios extends Model
     }
 
     public function buscarFuncionario($cpd){
-        $sql = "SELECT * FROM funcionarios WHERE cpd = ?";
+        $sql = "SELECT * FROM funcionarios WHERE cpd = ? AND status = 1";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $cpd);
         $sql->execute();
@@ -104,7 +106,42 @@ class Funcionarios extends Model
         }
     }
 
+    public function buscarFuncionarioID($id){
+        $sql = "SELECT * FROM funcionarios WHERE id = ? AND status = 1";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $id);
+        $sql->execute();
+        if($sql->rowCount() > 0){
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            return false;
+        }
+    }
 
+
+    public function deletarFuncionario($id){
+        $sql = "DELETE FROM funcionarios WHERE id = ? AND status = 1";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $id);
+        $sql->execute();
+        if($sql->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function demitirFuncionario($id){
+        $sql = "UPDATE funcionarios  SET status = 0 WHERE id = ?";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $id);
+        $sql->execute();
+        if($sql->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 

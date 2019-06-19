@@ -18,7 +18,8 @@ class Controller{
                 break;
             case 'PUT':
             case 'DELETE':
-                parse_str(file_get_contents('php://input'), $dados);
+                //parse_str(file_get_contents('php://input'), $dados);
+                $dados = json_decode(file_get_contents('php://input'));
                 return (array) $dados;
                 break;
             case 'POST':

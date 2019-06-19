@@ -59,6 +59,6 @@ $().ready(() => {
                 $(".conteudo").html("").html(msg);
             }
         })
-    })
+    });
 
 });

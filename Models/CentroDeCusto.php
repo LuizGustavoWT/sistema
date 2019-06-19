@@ -40,6 +40,7 @@ class CentroDeCusto extends Model
     public function buscarCentroDeCusto($cc){
         $sql = "SELECT * FROM centro_de_custo WHERE cod_cc = ?";
         $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $cc);
         $sql->execute();
 
         if ($sql->rowCount() > 0){
