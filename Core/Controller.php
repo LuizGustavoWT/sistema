@@ -1,48 +1,58 @@
 <?php
-namespace Core;
-class Controller{
 
-    public function getHeader(){
+namespace Core;
+class Controller
+{
+
+    public function getHeader()
+    {
         return getallheaders();
     }
 
-    public function getMethod(){
+    public function getMethod()
+    {
         return $_SERVER['REQUEST_METHOD'];
     }
 
-    public function getRequestData(){
+    public function getRequestData()
+    {
 
-        switch ($this->getMethod()){
+        switch ($this->getMethod()) {
             case 'GET':
                 return $_GET;
                 break;
             case 'PUT':
             case 'DELETE':
-                //parse_str(file_get_contents('php://input'), $dados);
-                $dados = json_decode(file_get_contents('php://input'));
-                return (array) $dados;
+
+                //$dados = json_decode(file_get_contents('php://input'));
+                parse_str(file_get_contents('php://input'), $dados);
+                //var_dump($dados);
+                return (array)$dados;
                 break;
             case 'POST':
                 $dados = json_decode(file_get_contents("php://input"));
-                if (is_null($dados)){
+                if (is_null($dados)) {
                     $dados = $_POST;
                 }
-                return (array) $dados;
+                return (array)$dados;
                 break;
         }
 
     }
 
-    public function returnJson($array){
+    public function returnJson($array)
+    {
         header('Content-type: application/json;charset=utf-8');
-        echo json_encode($array,448);
+        echo json_encode($array, 448);
         exit;
 
     }
 
-    public function loadView($viewName, $viewData = array()){
+    public function loadView($viewName, $viewData = array())
+    {
         extract($viewData);
-        require  'Views/'.$viewName.'.php';
+        require 'Views/' . $viewName . '.php';
     }
 }
+
 ?>

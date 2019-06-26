@@ -45,7 +45,7 @@
                         Atualizar dados do colaborador
                     </a>
 
-                    <a class="dropdown-item" href="">
+                    <a class="dropdown-item modal-ajax" href="<?php echo BASE_URL."/funcionarios/listar"?>">
                         Listar colaboradores
                     </a>
                 </div>

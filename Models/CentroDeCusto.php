@@ -28,7 +28,7 @@ class CentroDeCusto extends Model
         $sql = "INSERT INTO centro_de_custo  VALUES (?, ?)";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $codigo);
-        $sql->bindValue(2, $centroDeCusto);
+        $sql->bindValue(2, trim(strtoupper($centroDeCusto)));
         $sql->execute();
         if($this->db->lastInsertId() > 0 ){
             return true;
@@ -37,10 +37,23 @@ class CentroDeCusto extends Model
         }
     }
 
-    public function buscarCentroDeCusto($cc){
+    public function buscarCentroDeCusto($id){
+        $sql = "SELECT * FROM centro_de_custo WHERE id = ?";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $id);
+        $sql->execute();
+
+        if ($sql->rowCount() > 0){
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            return false;
+        }
+    }
+
+    public function buscarCentroDeCustoPorCodigo($cod){
         $sql = "SELECT * FROM centro_de_custo WHERE cod_cc = ?";
         $sql = $this->db->prepare($sql);
-        $sql->bindValue(1, $cc);
+        $sql->bindValue(1, $cod);
         $sql->execute();
 
         if ($sql->rowCount() > 0){

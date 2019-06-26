@@ -35,17 +35,6 @@ class Historico extends Model
         }
     }
 
-    public function deletarRegistro($id){
-        $sql = "DELETE FROM historico WHERE id = ?";
-        $sql = $this->db->prepare($sql);
-        $sql->bindValue(1, $id);
-        $sql->execute();
-        if($sql->rowCount() > 0){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+
 
 }

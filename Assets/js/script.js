@@ -61,4 +61,21 @@ $().ready(() => {
         })
     });
 
+    $("#editar").on('hide.bs.modal', (e) => alert("teste"))//{
+        let url = `${BASE_URL}/funcionarios/listar`;
+
+        let jwt = localStorage.getItem('jwt');
+
+        $.ajax({
+            url,
+            type: 'GET',
+            headers:{
+                "Authorization": jwt
+            },
+            success: (msg) => {
+                console.log("Funcionou");
+            }
+        });
+    //});
+
 });

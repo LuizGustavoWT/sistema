@@ -112,7 +112,7 @@ class Funcionarios extends Model
         $sql->bindValue(1, $id);
         $sql->execute();
         if($sql->rowCount() > 0){
-            return $sql->fetchAll(PDO::FETCH_ASSOC);
+            return $sql->fetch(PDO::FETCH_ASSOC);
         }else{
             return false;
         }

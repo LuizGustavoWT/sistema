@@ -12,8 +12,11 @@ $rotas['/sair'] = '/login/sair';
 // ROTAS FUNCIONARIOS
 
 $rotas['/funcionario'] = '/funcionario/index';
-$rotas['/funcionario/{id}'] = '/funcionario/index/:id';
-$rotas['/funcionario/demitir/{id}'] = '/funcionario/desligar/:id';
+//$rotas['/funcionario/{id}'] = '/funcionario/index/:id';
+$rotas['/funcionarios/demitir/{id}'] = '/funcionario/desligar/:id';
+$rotas['/funcionarios/editar/{id}'] = '/funcionario/atualizar/:id';
+$rotas['/funcionarios/selecionar/{id}'] = '/funcionario/selecionar/:id';
+$rotas['/funcionarios/listar'] = '/funcionario/listar';
 
 
 
