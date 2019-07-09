@@ -74,7 +74,7 @@ class Usuarios extends Model{
     }
 
     public function usuarioId($id){
-        $sql = "SELECT * FROM usuarios WHERE id = ?";
+        $sql = "SELECT * FROM usuarios WHERE id = ? AND situacao = 1";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $id);
         $sql->execute();

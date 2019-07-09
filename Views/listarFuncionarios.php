@@ -13,13 +13,14 @@
                 "Authorization": jwt
             },
             success: (msg) => {
+                $("div.modal-header > h5.modal-title").text("").text("Editar Dados Colaborador");
                 $("div.modal-body").html("").html(msg);
                 $("div.modal-body > form#editarFuncionario").attr("action", url);
             }
         })
     });
 
-    $("#editar").on('hidden.bs.modal', (e) => {
+    $("#modal").on('hidden.bs.modal', (e) => {
         let url = `${BASE_URL}/funcionarios/listar`;
 
         let jwt = localStorage.getItem('jwt');
@@ -43,6 +44,7 @@
         $("div.modal-footer > button.demitir").attr("href", url);
 
     });
+
     $(".demitir").on('click', (e) => {
         e.preventDefault();
         let url = e.target.attributes.getNamedItem('href').value;
@@ -62,6 +64,7 @@
             }
         })
     });
+
     $("#demitir").on('hidden.bs.modal', (e) => {
         let url = `${BASE_URL}/funcionarios/listar`;
 
@@ -78,6 +81,28 @@
             }
         });
     });
+
+    $(".lancar").on('click', (e) => {
+        e.preventDefault();
+        let url = e.target.attributes.getNamedItem('href').value;
+        console.log(url)
+        let jwt = localStorage.getItem('jwt');
+
+        $.ajax({
+            url,
+            type: 'GET',
+            headers:{
+                "Authorization": jwt
+            },
+            success: (msg) => {
+                $("div.modal-header > h5.modal-title").text("").text("Lançamento De Horas");
+                $("div.modal-body").html("").html(msg);
+                $("div.modal-body > form#lancarHora").attr("action", url);
+            }
+        })
+    });
+
+
 </script>
 
 <div class="tabela">
@@ -100,9 +125,9 @@
                 <td class="col col-md-2"></td>
                 <td class="col col-md-3">
                     <a class="btn btn-success lancar"
-                            href="#">Lancar</a>
+                            href="<?php echo BASE_URL."/lancar/".$funcionario['id'];?>" data-toggle="modal" data-target="#modal">Lancar</a>
                     <a class="btn btn-primary editar"
-                            href="<?php echo BASE_URL."/funcionarios/editar/".$funcionario['id'];?>" data-toggle="modal" data-target="#editar">Editar</a>
+                            href="<?php echo BASE_URL."/funcionarios/editar/".$funcionario['id'];?>" data-toggle="modal" data-target="#modal">Editar</a>
                     <a class="btn btn-danger desligar"
                             href="<?php echo BASE_URL."/funcionarios/demitir/".$funcionario['id'];?>" data-toggle="modal" data-target="#demitir">Desligar</a>
                 </td>
@@ -111,7 +136,7 @@
         </tbody>
     </table>
 
-    <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -129,6 +154,7 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="demitir" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

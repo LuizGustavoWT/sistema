@@ -22,6 +22,7 @@ elseif (ENVIROMENT == 'production'){
  * @var PDO 
  */
 global $db;
+
 try{
     $db = new PDO("mysql:dbname=".$config['dbname'].";host=".$config['host'],$config['user'],$config['password']);
 }catch (PDOException $e){

@@ -13,6 +13,7 @@ use Core\Controller;
 use Models\CentroDeCusto;
 use Models\Funcionarios;
 use Models\Lancamentos;
+use Models\TipoHora;
 use Models\Usuarios;
 use function PHPSTORM_META\elementType;
 
@@ -22,13 +23,14 @@ class FuncionarioController extends Controller
     private $lancamentos;
     private $user;
     private $centroDeCusto;
-
+    private $hora;
     public function __construct()
     {
         $this->funcionario = new Funcionarios();
         $this->lancamentos = new Lancamentos();
         $this->user = new Usuarios();
         $this->centroDeCusto = new CentroDeCusto();
+        $this->hora = new TipoHora();
     }
 
     public function index($id = null)
@@ -230,14 +232,44 @@ class FuncionarioController extends Controller
         }
     }
 
+    public function lancar($id){
+        $ret = array('erro' => '');
+        $method = $this->getMethod();
+        $dados = $this->getRequestData();
+        $header = $this->getHeader();
+        $token = (isset($header['Authorization']) && !empty($header['Authorization'])) ? $header['Authorization'] : $_SESSION['jwt'];
+
+        if ($this->user->isLoged($token)) {
+            if ($method == "GET") {
+                if (isset($id) && !empty($id)) {
+                    $func = $this->funcionario->buscarFuncionarioComCentroDeCusto($id);
+                    $hora = $this->hora->listarTipos();
+                    if ($func) {
+                        //$this->returnJson($func);
+                        $data['funcionario'] = $func;
+                        $data['horas'] = $hora;
+                        $this->loadView('lancarHoras',$data);
+                    } else {
+                        http_response_code(404);
+                        $ret['erro'] = "Funcionário não encontrado";
+                    }
+                } else {
+                    $ret['erro'] = "ID deve ser Informada";
+                }
+            }
+        } else {
+            $ret['erro'] = "Token Invalido";
+        }
+    }
+
+
     /**
      * @param $nome String
      * @param $cpd Int
      * @param $centroDeCusto ID valido centro de custo
      * @return bool|string
      */
-    private
-    function validateFuncionariosCadastro($nome, $cpd, $centroDeCusto)
+    private function validateFuncionariosCadastro($nome, $cpd, $centroDeCusto)
     {
         if (isset($nome) && !empty($nome)) {
             if (isset($cpd) && !empty($cpd)) {

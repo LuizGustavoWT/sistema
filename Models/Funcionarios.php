@@ -15,7 +15,7 @@ class Funcionarios extends Model
 {
 
     public function listarFuncionarios(){
-        $sql = "SELECT * FROM funcionarios WHERE status = 1 ORDER BY nome ASC";
+        $sql = "SELECT * FROM funcionario WHERE status = 1 ORDER BY nome ASC";
         $sql = $this->db->prepare($sql);
         $sql->execute();
 
@@ -27,7 +27,7 @@ class Funcionarios extends Model
     }
 
     public function novoFuncionario($nome, $cpd, $centroDeCusto){
-        $sql = "INSERT INTO funcionarios (cpd, nome, id_centro_de_custo) VALUES (?,?,?)";
+        $sql = "INSERT INTO funcionario (cpd, nome, id_centro_de_custo) VALUES (?,?,?)";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $cpd);
         $sql->bindValue(2, trim(strtoupper($nome)));
@@ -41,7 +41,7 @@ class Funcionarios extends Model
     }
 
     public function atualizarDadosFuncionario($nome, $cpd, $centroDeCusto, $id){
-        $sql = "UPDATE funcionarios SET nome = ?, id_centro_de_custo = ?, cpd = ? WHERE id = ?";
+        $sql = "UPDATE funcionario SET nome = ?, id_centro_de_custo = ?, cpd = ? WHERE id = ?";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, trim(strtoupper($nome)));
         $sql->bindValue(2, $centroDeCusto);
@@ -56,7 +56,7 @@ class Funcionarios extends Model
     }
 
     public function saldoTotalBanco(){
-        $sql = "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(funcionarios.saldo))) as saldoTotal FROM funcionarios";
+        $sql = "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(funcionario.saldo))) as saldoTotal FROM funcionario";
 
         $sql = $this->db->prepare($sql);
         $sql->execute();
@@ -69,7 +69,7 @@ class Funcionarios extends Model
     }
 
     public function saldoTotalBancoPorCentroDeCusto($cc){
-        $sql = "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(funcionarios.saldo))) as total FROM funcionarios WHERE id_centro_de_custo = ((SELECT id FROM centro_de_custo WHERE centro_de_custo.cod_cc = ?) )";
+        $sql = "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(funcionario.saldo))) as total FROM funcionario WHERE id_centro_de_custo = ((SELECT id FROM centro_de_custo WHERE centro_de_custo.cod_cc = ?) )";
 
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $cc);
@@ -83,7 +83,7 @@ class Funcionarios extends Model
     }
 
     public function funcionariosPorCentroDeCusto($idCentroDeCusto){
-        $sql = "SELECT * FROM funcionarios WHERE id_centro_de_custo = ?";
+        $sql = "SELECT * FROM funcionario WHERE id_centro_de_custo = ?";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $idCentroDeCusto);
         $sql->execute();
@@ -95,7 +95,7 @@ class Funcionarios extends Model
     }
 
     public function buscarFuncionario($cpd){
-        $sql = "SELECT * FROM funcionarios WHERE cpd = ? AND status = 1";
+        $sql = "SELECT * FROM funcionario WHERE cpd = ? AND status = 1";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $cpd);
         $sql->execute();
@@ -106,8 +106,20 @@ class Funcionarios extends Model
         }
     }
 
+    public function buscarFuncionarioComCentroDeCusto($id){
+        $sql = "SELECT * FROM funcionario JOIN centro_de_custo c3 on funcionario.id_centro_de_custo = c3.id WHERE funcionario.id = ? AND status = 1";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $id);
+        $sql->execute();
+        if($sql->rowCount() > 0){
+            return $sql->fetch(PDO::FETCH_ASSOC);
+        }else{
+            return false;
+        }
+    }
+
     public function buscarFuncionarioID($id){
-        $sql = "SELECT * FROM funcionarios WHERE id = ? AND status = 1";
+        $sql = "SELECT * FROM funcionario WHERE id = ? AND status = 1";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $id);
         $sql->execute();
@@ -120,7 +132,7 @@ class Funcionarios extends Model
 
 
     public function deletarFuncionario($id){
-        $sql = "DELETE FROM funcionarios WHERE id = ? AND status = 1";
+        $sql = "DELETE FROM funcionario WHERE id = ? AND status = 1";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $id);
         $sql->execute();
@@ -132,7 +144,7 @@ class Funcionarios extends Model
     }
 
     public function demitirFuncionario($id){
-        $sql = "UPDATE funcionarios  SET status = 0 WHERE id = ?";
+        $sql = "UPDATE funcionario  SET status = 0 WHERE id = ?";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $id);
         $sql->execute();
