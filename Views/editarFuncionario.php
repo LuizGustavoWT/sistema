@@ -10,17 +10,6 @@
 
         let url = $("#editarFuncionario").attr('action');
 
-
-        const obj = {
-            jwt,
-            nome,
-            cpd,
-            centrodecusto,
-            url,
-        }
-
-
-
         $.ajax({
             url: url,
             type: "PUT",
@@ -43,7 +32,7 @@
         });
     })
 </script>
-<form id="editarFuncionario" action="">
+<form id="editarFuncionario" action="<?php echo BASE_URL."/funcionarios/editar/".$funcionario['id'];?>">
     <div class="form-group">
         <label>Nome</label>
         <input class="form-control" placeholder="Nome" name="nome" value="<?php echo $funcionario['nome']; ?>">

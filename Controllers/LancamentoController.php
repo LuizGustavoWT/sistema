@@ -56,35 +56,46 @@ class LancamentoController extends Controller
                     } else {
                         http_response_code(404);
                         $ret['erro'] = "Funcionário não encontrado";
+                        $this->returnJson($ret);
                     }
                 } else {
                     $ret['erro'] = "ID deve ser Informada";
+                    $this->returnJson($ret);
                 }
+
             }
             else if ($method == "POST") {
                 if (isset($id) && !empty($id)) {
                     $func = $this->funcionario->buscarFuncionarioComCentroDeCusto($id);
                     if ($func) {
                         $msg = $this->validarLancamento($dados['qtdHoras'], $dados['tipoHora'], $user['id']);
+
                         if (is_bool($msg) && $msg) {
-                            if ($this->lancamentos->lancarHoras($id, $dados['qtdHoras'], $dados['tipoHora'], $user['id'])) {
-                                $ret['sucesso'] = "Lançamento Efetuado";
-                                unset($ret['erro']);
+                            $fator = $this->hora->listarTiposID($dados['tipoHora']);
+                            if($this->historico->novoRegistro($dados['qtdHoras'], $id, $user['id'],$dados['tipoHora'])) {
+                                if ($this->lancamentos->lancarHoras($id, $dados['qtdHoras'], $fator['porcentagem'])) {
+                                    $ret['sucesso'] = "Lançamento Efetuado";
+                                    unset($ret['erro']);
+                                }else{
+                                    $ret['erro'] = "Falha Ao Lançar";
+                                }
+                            }else{
+                                $ret['erro'] = "Falha Ao Lançar";
                             }
                         } else {
                             $ret['erro'] = $msg;
                         }
-                        $this->returnJson($ret);
                     } else {
                         http_response_code(404);
                         $ret['erro'] = "Funcionário não encontrado";
                     }
+                    $this->returnJson($ret);
                 } else {
                     $ret['erro'] = "ID deve ser Informada";
                 }
 
             }
-            else if ($method == "DELETE") {
+            /*else if ($method == "DELETE") {
                 if (isset($id) && !empty($id)) {
                     $hist = $this->historico->selecionarMovimento($id);
                     if ($hist) {
@@ -105,9 +116,44 @@ class LancamentoController extends Controller
                 } else {
                     $ret['erro'] = "ID deve ser Informada";
                 }
-            }
+            }*/
         } else {
             $ret['erro'] = "Token Invalido";
+        }
+    }
+
+    public function lancamentos($id){
+        $ret = array('erro' => '');
+        $method = $this->getMethod();
+        $dados = $this->getRequestData();
+        $header = $this->getHeader();
+        $token = (isset($header['Authorization']) && !empty($header['Authorization'])) ? $header['Authorization'] : $_SESSION['jwt'];
+        $user = $this->user->isLoged($token);
+        if ($user) {
+            if ($method == "GET") {
+                if (isset($id) && !empty($id)) {
+                    $his = $this->historico->listarHistoricoFuncionario($id);
+                    if ($his) {
+                        $data['lancamentos'] = $his;
+                        $this->loadView('lancamentos', $data);
+                    } else {
+                        http_response_code(404);
+                        $ret['erro'] = "Sem Registros Para Este Funcionario";
+                    }
+                }
+            }
+            else if($method == "POST"){
+                if (isset($id) && !empty($id)) {
+                    $his = $this->historico->listarHistoricoFuncionario($id);
+                    if ($his) {
+                        $data['lancamentos'] = $his;
+                        $this->loadView('lancamentos', $data);
+                    } else {
+                        http_response_code(404);
+                        $ret['erro'] = "Funcionário não encontrado";
+                    }
+                }
+            }
         }
     }
 

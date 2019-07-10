@@ -58,15 +58,19 @@ class Historico extends Model
         }
     }
 
-    public function listarHistoricoFuncionario($idFuncionario){
-        $sql = "SELECT * FROM historico WHERE id_funcionario = ? AND status = 1";
+    public function listarHistoricoFuncionario($idFuncionario)
+    {
+        $sql = "SELECT h.descricao as tipo_hora, historico.qtd_horas, historico.id, data_mov FROM historico
+JOIN funcionario f on historico.id_funcionario = f.id
+JOIN tipo_hora h on historico.id_tipo_hora = h.id
+WHERE id_funcionario = ? AND status = 1 ORDER BY data_mov LIMIT 10";
         $sql = $this->db->prepare($sql);
-        $sql->bindValue(1,$idFuncionario);
+        $sql->bindValue(1, $idFuncionario);
         $sql->execute();
 
-        if($sql->rowCount() > 0){
+        if ($sql->rowCount() > 0) {
             return $sql->fetchAll(PDO::FETCH_ASSOC);
-        }else{
+        } else {
             return false;
         }
     }

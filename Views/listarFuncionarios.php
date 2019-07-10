@@ -15,7 +15,6 @@
             success: (msg) => {
                 $("div.modal-header > h5.modal-title").text("").text("Editar Dados Colaborador");
                 $("div.modal-body").html("").html(msg);
-                $("div.modal-body > form#editarFuncionario").attr("action", url);
             }
         })
     });
@@ -97,10 +96,11 @@
             success: (msg) => {
                 $("div.modal-header > h5.modal-title").text("").text("Lançamento De Horas");
                 $("div.modal-body").html("").html(msg);
-                $("div.modal-body > form#lancarHora").attr("action", url);
             }
         })
     });
+
+
 
 
 </script>
@@ -112,8 +112,7 @@
             <th class="col col-md-1">CPD</th>
             <th class="col col-md-5">NOME</th>
             <th class="col col-md-1">SALDO</th>
-            <th class="col col-md-2">CENTRO DE CUSTO</th>
-            <th class="col col-md-3">AÇÕES</th>
+            <th class="col col-md-4">AÇÕES</th>
         </tr>
         </thead>
         <tbody>
@@ -122,8 +121,7 @@
                 <td class="col col-md-1"><?php echo $funcionario['cpd'] ?></td>
                 <td class="col col-md-5"><?php echo $funcionario['nome'] ?></td>
                 <td class="col col-md-1"><?php echo $funcionario['saldo'] ?></td>
-                <td class="col col-md-2"></td>
-                <td class="col col-md-3">
+                <td class="col col-md-4">
                     <a class="btn btn-success lancar"
                             href="<?php echo BASE_URL."/lancar/".$funcionario['id'];?>" data-toggle="modal" data-target="#modal">Lancar</a>
                     <a class="btn btn-primary editar"

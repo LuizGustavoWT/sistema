@@ -107,7 +107,7 @@ class Funcionarios extends Model
     }
 
     public function buscarFuncionarioComCentroDeCusto($id){
-        $sql = "SELECT * FROM funcionario JOIN centro_de_custo c3 on funcionario.id_centro_de_custo = c3.id WHERE funcionario.id = ? AND status = 1";
+        $sql = "SELECT funcionario.id,nome, saldo, c3.cod_cc FROM funcionario JOIN centro_de_custo c3 on funcionario.id_centro_de_custo = c3.id WHERE funcionario.id = ? AND status = 1";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $id);
         $sql->execute();

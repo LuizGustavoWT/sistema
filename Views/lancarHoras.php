@@ -1,13 +1,12 @@
 <script>
-
     $("#lancarHora").on('submit', (e) => {
         e.preventDefault();
+
 
         let jwt = localStorage.getItem('jwt');
         let qtdHoras = $('input[name=qtdHoras]').val();
         let tipoHora = $('select[name=tipoHora] option:selected').val();
         let url = $("#lancarHora").attr('action');
-
         $.ajax({
             url: url,
             type: "POST",
@@ -19,6 +18,7 @@
                 tipoHora
             },
             success: (mens) => {
+                debugger;
                 if (mens.erro == undefined) {
                     alert(mens.sucesso);
                 } else {
@@ -28,7 +28,7 @@
         });
     })
 </script>
-<form id="lancarHora" action="">
+<form id="lancarHora" action="<?php echo BASE_URL."/lancar/".$funcionario['id']?>">
     <div class="form-group">
         <label><?php echo $funcionario['nome']; ?></label>
     </div>
