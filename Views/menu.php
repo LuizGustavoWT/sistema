@@ -20,14 +20,8 @@
                     Relatórios
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="relatorios">
-                    <a class="dropdown-item">
+                    <a class="dropdown-item modal-ajax" href="<?php echo BASE_URL."/relatorio/saldo";?>">
                         Saldos por funcionario
-                    </a>
-                    <a class="dropdown-item disabled">
-                        Saldo por centro de custo
-                    </a>
-                    <a class="dropdown-item">
-                        Histórico De Lançamento
                     </a>
                 </div>
             </li>
@@ -39,10 +33,6 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="operacoesNavbar">
                     <a class="dropdown-item modal-ajax" href="<?php echo BASE_URL."/funcionario"?>">
                         Cadastrar colaborador
-                    </a>
-
-                    <a class="dropdown-item modal-ajax" href="<?php echo BASE_URL."/teste"?>">
-                        Atualizar dados do colaborador
                     </a>
 
                     <a class="dropdown-item modal-ajax" href="<?php echo BASE_URL."/funcionarios/listar"?>">

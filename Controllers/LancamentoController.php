@@ -63,8 +63,7 @@ class LancamentoController extends Controller
                     $this->returnJson($ret);
                 }
 
-            }
-            else if ($method == "POST") {
+            } else if ($method == "POST") {
                 if (isset($id) && !empty($id)) {
                     $func = $this->funcionario->buscarFuncionarioComCentroDeCusto($id);
                     if ($func) {
@@ -72,14 +71,14 @@ class LancamentoController extends Controller
 
                         if (is_bool($msg) && $msg) {
                             $fator = $this->hora->listarTiposID($dados['tipoHora']);
-                            if($this->historico->novoRegistro($dados['qtdHoras'], $id, $user['id'],$dados['tipoHora'])) {
+                            if ($this->historico->novoRegistro($dados['qtdHoras'], $id, $user['id'], $dados['tipoHora'])) {
                                 if ($this->lancamentos->lancarHoras($id, $dados['qtdHoras'], $fator['porcentagem'])) {
                                     $ret['sucesso'] = "Lançamento Efetuado";
                                     unset($ret['erro']);
-                                }else{
+                                } else {
                                     $ret['erro'] = "Falha Ao Lançar";
                                 }
-                            }else{
+                            } else {
                                 $ret['erro'] = "Falha Ao Lançar";
                             }
                         } else {
@@ -95,34 +94,13 @@ class LancamentoController extends Controller
                 }
 
             }
-            /*else if ($method == "DELETE") {
-                if (isset($id) && !empty($id)) {
-                    $hist = $this->historico->selecionarMovimento($id);
-                    if ($hist) {
-                        $msg = $this->validarLancamento($dados['qtdHoras'], $dados['tipoHora'], $user['id']);
-                        if (is_bool($msg) && $msg) {
-                            if ($this->lancamentos->lancarHoras($id, $dados['qtdHoras'], $dados['tipoHora'], $user['id'])) {
-                                $ret['sucesso'] = "Lançamento Efetuado";
-                                unset($ret['erro']);
-                            }
-                        } else {
-                            $ret['erro'] = $msg;
-                        }
-                        $this->returnJson($ret);
-                    } else {
-                        http_response_code(404);
-                        $ret['erro'] = "Funcionário não encontrado";
-                    }
-                } else {
-                    $ret['erro'] = "ID deve ser Informada";
-                }
-            }*/
         } else {
             $ret['erro'] = "Token Invalido";
         }
     }
 
-    public function lancamentos($id){
+    public function lancamentos($id)
+    {
         $ret = array('erro' => '');
         $method = $this->getMethod();
         $dados = $this->getRequestData();
@@ -139,19 +117,37 @@ class LancamentoController extends Controller
                     } else {
                         http_response_code(404);
                         $ret['erro'] = "Sem Registros Para Este Funcionario";
+                        $this->returnJson($ret);
                     }
                 }
-            }
-            else if($method == "POST"){
+            } else if ($method == "POST") {
                 if (isset($id) && !empty($id)) {
-                    $his = $this->historico->listarHistoricoFuncionario($id);
+                    $his = $this->historico->selecionarMovimento($id);
                     if ($his) {
-                        $data['lancamentos'] = $his;
-                        $this->loadView('lancamentos', $data);
+                        $hora = $this->hora->listarTiposID($his['id_tipo_hora']);
+                        if ($hora) {
+                            $fator = ($hora['porcentagem'] * -1);
+                            if($this->lancamentos->lancarHoras($his['id_funcionario'], $his['qtd_horas'], $fator)){
+                                if($this->historico->corrigirHistorico($id)){
+                                    $ret['sucesso'] = "Lançamento Corrigido";
+                                    unset($ret['erro']);
+                                }else{
+                                    $ret['erro'] = "Erro ao corrigir lançamento";
+                                }
+
+                            }else{
+                                $ret['erro'] = "Erro ao corrigir lançamento";
+                            }
+                        } else {
+                            http_response_code(404);
+                            $ret['erro'] = "Tipo de hora não encontrado";
+                        }
                     } else {
                         http_response_code(404);
-                        $ret['erro'] = "Funcionário não encontrado";
+                        $ret['erro'] = "Movimento não encontrado";
                     }
+
+                    $this->returnJson($ret);
                 }
             }
         }

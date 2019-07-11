@@ -100,6 +100,30 @@
         })
     });
 
+    $(".corrigir").on('click', (e) => {
+        e.preventDefault();
+        let url = e.target.attributes.getNamedItem('href').value;
+        console.log(url)
+        let jwt = localStorage.getItem('jwt');
+
+        $.ajax({
+            url,
+            type: 'GET',
+            headers:{
+                "Authorization": jwt
+            },
+            success: (msg) => {
+                if(msg.erro == undefined) {
+                    $("div.modal-header > h5.modal-title").text("").text("Corrigir Lançamentos");
+                    $("div.modal-body").html("").html(msg);
+                }else {
+                    alert(msg.erro);
+                    $('#modal').hidden();
+                }
+            }
+        })
+    });
+
 
 
 
@@ -109,10 +133,10 @@
     <table class="table table-striped">
         <thead>
         <tr class="row">
-            <th class="col col-md-1">CPD</th>
-            <th class="col col-md-5">NOME</th>
-            <th class="col col-md-1">SALDO</th>
-            <th class="col col-md-4">AÇÕES</th>
+            <th class="col col-md-1"><label>CPD</label></th>
+            <th class="col col-md-5"><label>NOME</label></th>
+            <th class="col col-md-1"><label>SALDO</label></th>
+            <th class="col col-md-5"><label>AÇÕES</label></th>
         </tr>
         </thead>
         <tbody>
@@ -121,13 +145,15 @@
                 <td class="col col-md-1"><?php echo $funcionario['cpd'] ?></td>
                 <td class="col col-md-5"><?php echo $funcionario['nome'] ?></td>
                 <td class="col col-md-1"><?php echo $funcionario['saldo'] ?></td>
-                <td class="col col-md-4">
+                <td class="col col-md-5">
                     <a class="btn btn-success lancar"
                             href="<?php echo BASE_URL."/lancar/".$funcionario['id'];?>" data-toggle="modal" data-target="#modal">Lancar</a>
                     <a class="btn btn-primary editar"
                             href="<?php echo BASE_URL."/funcionarios/editar/".$funcionario['id'];?>" data-toggle="modal" data-target="#modal">Editar</a>
                     <a class="btn btn-danger desligar"
                             href="<?php echo BASE_URL."/funcionarios/demitir/".$funcionario['id'];?>" data-toggle="modal" data-target="#demitir">Desligar</a>
+                    <a class="btn btn-dark corrigir"
+                       href="<?php echo BASE_URL."/lancamentos/funcionario/".$funcionario['id'];?>" data-toggle="modal" data-target="#modal">Corrigir Lançamentos</a>
                 </td>
             </tr>
         <?php endforeach; ?>

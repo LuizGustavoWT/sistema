@@ -54,3 +54,10 @@ button > i {
     margin-right: 15px;
     margin-top: 25px;
 }
+
+th{
+    alignment: center;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}

@@ -15,7 +15,6 @@ use Models\Funcionarios;
 use Models\Lancamentos;
 use Models\TipoHora;
 use Models\Usuarios;
-use function PHPSTORM_META\elementType;
 
 class FuncionarioController extends Controller
 {
@@ -43,7 +42,8 @@ class FuncionarioController extends Controller
 
         if ($this->user->isLoged($token)) {
             if ($method == 'GET') {
-                $this->loadView('novoFuncionario');
+                $data["centros"] = $this->centroDeCusto->listarCentroDeCusto();
+                $this->loadView('novoFuncionario', $data);
             } else if ($method == "POST") {
 
                 $msg = $this->validateFuncionariosCadastro($dados['nome'],
@@ -294,8 +294,7 @@ class FuncionarioController extends Controller
         }
     }
 
-    private
-    function validateFuncionariosAtualizacao($nome, $cpd, $centroDeCusto)
+    private function validateFuncionariosAtualizacao($nome, $cpd, $centroDeCusto)
     {
         if (isset($nome) && !empty($nome)) {
             if (isset($cpd) && !empty($cpd)) {

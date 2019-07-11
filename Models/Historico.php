@@ -47,8 +47,9 @@ class Historico extends Model
     }
 
     public function corrigirHistorico($id){
-        $sql = "UPDATE historico SET status = 0";
+        $sql = "UPDATE historico SET status = 0 WHERE id = ?";
         $sql = $this->db->prepare($sql);
+        $sql->bindValue(1, $id);
         $sql->execute();
 
         if($sql->rowCount() > 0){
@@ -60,10 +61,7 @@ class Historico extends Model
 
     public function listarHistoricoFuncionario($idFuncionario)
     {
-        $sql = "SELECT h.descricao as tipo_hora, historico.qtd_horas, historico.id, data_mov FROM historico
-JOIN funcionario f on historico.id_funcionario = f.id
-JOIN tipo_hora h on historico.id_tipo_hora = h.id
-WHERE id_funcionario = ? AND status = 1 ORDER BY data_mov LIMIT 10";
+        $sql = "SELECT h.descricao as tipo_hora, historico.qtd_horas, historico.id, data_mov FROM historico JOIN funcionario f on historico.id_funcionario = f.id JOIN tipo_hora h on historico.id_tipo_hora = h.id WHERE id_funcionario = ? AND historico.status = 1 ORDER BY data_mov DESC LIMIT 10";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $idFuncionario);
         $sql->execute();
@@ -76,7 +74,7 @@ WHERE id_funcionario = ? AND status = 1 ORDER BY data_mov LIMIT 10";
     }
 
     public function selecionarMovimento($id){
-        $sql = "SELECT * FROM historico WHERE id = ?";
+        $sql = "SELECT * FROM historico WHERE id = ? AND status = 1";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1,$id);
         $sql->execute();

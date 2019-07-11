@@ -44,7 +44,9 @@
             <div class="form-group">
                 <label>Centro De Custo</label>
                 <select class="form-control" name="cc">
-                    <option value="1">Teste</option>
+                    <?php foreach ($centros as $centro): ?>
+                        <option value="<?php echo $centro['id']?>"><?php echo $centro['cod_cc'] . " - " . $centro['descricao']?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <button class="btn btn-success" type="submit">

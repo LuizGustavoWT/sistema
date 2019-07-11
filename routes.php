@@ -18,7 +18,12 @@ $rotas['/funcionarios/editar/{id}'] = '/funcionario/atualizar/:id';
 $rotas['/funcionarios/selecionar/{id}'] = '/funcionario/selecionar/:id';
 $rotas['/funcionarios/listar'] = '/funcionario/listar';
 $rotas['/lancar/{id}'] = "/lancamento/lancar/:id";
-//$rotas['/lancamentos/funcionario/{id}'] = "/lancamento/lancamentos/:id";
+$rotas['/lancamentos/funcionario/{id}'] = "/lancamento/lancamentos/:id";
+$rotas['/lancamentos/funcionario/{id}/corrigir'] = "/lancamento/lancamentos/:id";
+
+//Relatórios
+
+$rotas['/relatorio/saldo'] = "/relatorio/saldo/";
 
 
 
