@@ -17,7 +17,7 @@ class Relatorios extends Model
     {
         $sql = "SELECT nome, saldo, cpd, c3.cod_cc, c3.descricao  
 FROM funcionario 
-JOIN centro_de_custo c3 on funcionario.id_centro_de_custo = c3.id 
+JOIN centro_de_custo c3 on funcionario.id_centro_de_custo = c3.id WHERE status = 1
 ORDER BY nome ASC, c3.cod_cc DESC";
         $sql = $this->db->prepare($sql);
         $sql->execute();

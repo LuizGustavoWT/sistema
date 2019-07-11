@@ -86,7 +86,7 @@ class RelatorioController extends Controller
         flush();
         // Envia o arquivo para o cliente
         readfile('Assets/relatorios/' . $filename);
-        @unlink('Assets/relatorios/' . $filename);
+        unlink('Assets/relatorios/' . $filename);
 
     }
 
