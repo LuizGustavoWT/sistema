@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="12d0284a-1caa-44d9-bb1c-e03310b72d9d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Controllers/RelatorioController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/RelatorioController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/Relatorios.php" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Relatorios.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +64,7 @@
           <entry key="jpeg" value="1" />
           <entry key="js" value="6" />
           <entry key="md" value="2" />
-          <entry key="php" value="144" />
+          <entry key="php" value="147" />
           <entry key="sql" value="1" />
         </counts>
       </usages-collector>
@@ -74,7 +74,7 @@
           <entry key="Image" value="1" />
           <entry key="JavaScript" value="6" />
           <entry key="Markdown" value="2" />
-          <entry key="PHP" value="144" />
+          <entry key="PHP" value="147" />
           <entry key="PLAIN_TEXT" value="2" />
           <entry key="Scratch" value="1" />
           <entry key="htaccess" value="1" />
@@ -86,7 +86,7 @@
           <entry key="gitignore" value="9" />
           <entry key="htaccess" value="10" />
           <entry key="js" value="1735" />
-          <entry key="php" value="19858" />
+          <entry key="php" value="19865" />
           <entry key="txt" value="10" />
         </counts>
       </usages-collector>
@@ -94,7 +94,7 @@
         <counts>
           <entry key="CSS" value="735" />
           <entry key="JavaScript" value="1735" />
-          <entry key="PHP" value="19846" />
+          <entry key="PHP" value="19853" />
           <entry key="PLAIN_TEXT" value="19" />
           <entry key="SQL" value="11" />
           <entry key="htaccess" value="10" />
@@ -118,14 +118,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Controllers/RelatorioController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
+            <state relative-caret-position="1310">
               <caret line="88" column="8" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="8" />
               <folding>
                 <element signature="e#114#134#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
             </state>
           </provider>
         </entry>
@@ -150,6 +159,24 @@
               <folding>
                 <element signature="n#style#0;n#a#1;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Core/Model.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="26" column="168" selection-start-line="26" selection-start-column="168" selection-end-line="26" selection-end-column="168" />
             </state>
           </provider>
         </entry>
@@ -208,7 +235,6 @@
         <option value="$PROJECT_DIR$/Assets/js/script.js" />
         <option value="$PROJECT_DIR$/Models/TipoHora.php" />
         <option value="$PROJECT_DIR$/Models/Usuarios.php" />
-        <option value="$PROJECT_DIR$/config.php" />
         <option value="$PROJECT_DIR$/Models/CentroDeCusto.php" />
         <option value="$PROJECT_DIR$/PHPMailer/Exception.php" />
         <option value="$PROJECT_DIR$/PHPMailer/OAuth.php" />
@@ -232,6 +258,8 @@
         <option value="$PROJECT_DIR$/Views/saldoPorFuncionario.php" />
         <option value="$PROJECT_DIR$/Models/Relatorios.php" />
         <option value="$PROJECT_DIR$/Controllers/RelatorioController.php" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/config.php" />
       </list>
     </option>
   </component>
@@ -347,12 +375,12 @@
       <workItem from="1560820319517" duration="39118000" />
       <workItem from="1560994155320" duration="43498000" />
       <workItem from="1562109959030" duration="48641000" />
-      <workItem from="1562712413793" duration="54572000" />
+      <workItem from="1562712413793" duration="55862000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="236897000" />
+    <option name="totallyTimeSpent" value="238187000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -507,13 +535,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/PDO/PDO.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="129">
@@ -552,13 +573,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" column="40" lean-forward="true" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PHPMailer/phpmailer.lang-pt_br.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -569,13 +583,6 @@
           <folding>
             <element signature="e#880#924#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Core/Model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
@@ -761,11 +768,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Controllers/RelatorioController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
+        <state relative-caret-position="1310">
           <caret line="88" column="8" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="8" />
           <folding>
             <element signature="e#114#134#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Core/Model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="26" column="168" selection-start-line="26" selection-start-column="168" selection-end-line="26" selection-end-column="168" />
         </state>
       </provider>
     </entry>

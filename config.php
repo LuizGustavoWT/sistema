@@ -24,7 +24,7 @@ elseif (ENVIROMENT == 'production'){
 global $db;
 
 try{
-    $db = new PDO("mysql:dbname=".$config['dbname'].";host=".$config['host'],$config['user'],$config['password']);
+    $db = new PDO("mysql:dbname=".$config['dbname'].";host=".$config['host'],$config['user'],$config['password'],array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 }catch (PDOException $e){
     echo $e->getMessage();
 }
