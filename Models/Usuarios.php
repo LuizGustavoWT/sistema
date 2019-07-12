@@ -20,7 +20,7 @@ class Usuarios extends Model{
     }
 
     public function login($user, $password){
-        $sql = "SELECT * FROM usuarios WHERE usuario = ? AND senha = ? AND situacao = 1";
+        $sql = "SELECT * FROM usuario WHERE usuario = ? AND senha = ? AND situacao = 1";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $user);
         $sql->bindValue(2, md5($password));
@@ -35,7 +35,7 @@ class Usuarios extends Model{
 
     public function listarUsuarios(){
 
-        $sql = "SELECT * FROM usuarios";
+        $sql = "SELECT * FROM usuario";
         $sql = $this->db->prepare($sql);
         $sql->execute();
         if($sql->rowCount() > 0){
@@ -47,7 +47,7 @@ class Usuarios extends Model{
 
     public function novoUsuario($user, $password){
 
-        $sql = "INSERT INTO usuarios (usuario, senha) VALUES (?,?)";
+        $sql = "INSERT INTO usuario (usuario, senha) VALUES (?,?)";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $user);
         $sql->bindValue(2, md5($password));
@@ -62,7 +62,7 @@ class Usuarios extends Model{
     }
 
     public function usuarioExistente($user){
-        $sql = "SELECT * FROM usuarios WHERE usuario = ?";
+        $sql = "SELECT * FROM usuario WHERE usuario = ?";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $user);
         $sql->execute();
@@ -74,7 +74,7 @@ class Usuarios extends Model{
     }
 
     public function usuarioId($id){
-        $sql = "SELECT * FROM usuarios WHERE id = ? AND situacao = 1";
+        $sql = "SELECT * FROM usuario WHERE id = ? AND situacao = 1";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1, $id);
         $sql->execute();
@@ -86,7 +86,7 @@ class Usuarios extends Model{
     }
 
     public function desabilitarUsuario($id){
-        $sql = "UPDATE usuarios SET situacao = 0 WHERE id = ?";
+        $sql = "UPDATE usuario SET situacao = 0 WHERE id = ?";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(1,$id);
         $sql->execute();
