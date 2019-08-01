@@ -23,7 +23,6 @@ class Controller
                 break;
             case 'PUT':
             case 'DELETE':
-
                 //$dados = json_decode(file_get_contents('php://input'));
                 parse_str(file_get_contents('php://input'), $dados);
                 //var_dump($dados);
